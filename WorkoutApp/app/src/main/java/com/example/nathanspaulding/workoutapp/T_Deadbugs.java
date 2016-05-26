@@ -25,6 +25,7 @@ import android.widget.Toast;
  */
 public class T_Deadbugs extends AppCompatActivity {
 
+    public boolean dataSent;
     int interval, totalSets;
     Button startButton, pauseButton, finshButton;
 
@@ -38,10 +39,7 @@ public class T_Deadbugs extends AppCompatActivity {
     long timeSwapBuff = 0L;
     long updateTime = 0L;
 
-    String[] switches;
-    ArrayAdapter arrayAdapter;
-
-    int num2 = 0, i=0, j=0;
+    int num2 = 0, i=0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -103,6 +101,15 @@ public class T_Deadbugs extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Send back data to DeadBug_Fragment
+                        dataSent = true;
+                        Bundle bundle = new Bundle();
+                        bundle.putString("Timer", timerValue.getText().toString());
+                        bundle.putInt("Interval", interval);
+                        bundle.putInt("Sets", totalSets / 2);
+                        DeadBugs_Fragment deadBugs_fragment = new DeadBugs_Fragment();
+                        deadBugs_fragment.setArguments(bundle);
+                        deadBugs_fragment.recieveData();
+                        finish();
                     }
                 });
 

@@ -12,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,10 @@ import android.widget.Toast;
 public class DeadBugs_Fragment extends android.support.v4.app.Fragment {
 
     View myView;
-    int duration, interval;
+    TextView tv;
+    int duration, interval, interval1, sets;
+    boolean receivedData = false;
+    String timerValue;
 
     @Nullable
     @Override
@@ -43,6 +47,13 @@ public class DeadBugs_Fragment extends android.support.v4.app.Fragment {
         });
 
         return myView;
+    }
+
+    public void recieveData(){
+        timerValue = getArguments().getString("Timer");
+        interval1 = getArguments().getInt("Interval");
+        sets = getArguments().getInt("Sets");
+        Log.d("Test", timerValue.toString() + "+ " + interval1 + "+ " + sets);
     }
 
     public void CreateNew() {
@@ -75,6 +86,7 @@ public class DeadBugs_Fragment extends android.support.v4.app.Fragment {
                 Intent intent = new Intent(getContext(), T_Deadbugs.class);
                 intent.putExtra("Interval", interval);
                 startActivity(intent);
+                receivedData = true;
 
             }
         });
