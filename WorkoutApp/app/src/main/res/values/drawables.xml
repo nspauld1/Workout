@@ -1,0 +1,15 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item name="ic_menu_mainMenu" type="drawable">@android:drawable/ic_menu_agenda</item>
+    <item name="ic_menu_deadBugs" type="drawable">@android:drawable/ic_menu_compass</item>
+    <item name="ic_menu_isoHolds" type="drawable">@android:drawable/ic_menu_compass</item>
+
+    <item name="ic_menu_friends" type="drawable">@android:drawable/ic_input_get</item>
+    <item name="ic_menu_share" type="drawable">@android:drawable/ic_menu_share</item>
+    <item name="ic_menu_sendInvite" type="drawable">@android:drawable/ic_menu_send</item>
+    <item name="ic_menu_login" type="drawable">@android:drawable/ic_menu_recent_history</item>
+    <item name="ic_create_builder" type="drawable">@android:drawable/ic_menu_edit</item>
+    <item name="ic_create_complete" type="drawable">@android:drawable/btn_star</item>
+
+
+</resources>
