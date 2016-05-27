@@ -72,6 +72,7 @@ public class T_Deadbugs extends AppCompatActivity {
 
             public void onClick(View view) {
 
+                startButton.setClickable(true);
                 timeSwapBuff += timeInMilliseconds;
                 customHandler.removeCallbacks(updateTimerThread);
 
@@ -101,14 +102,14 @@ public class T_Deadbugs extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Send back data to DeadBug_Fragment
-                        dataSent = true;
                         Bundle bundle = new Bundle();
                         bundle.putString("Timer", timerValue.getText().toString());
                         bundle.putInt("Interval", interval);
                         bundle.putInt("Sets", totalSets / 2);
                         DeadBugs_Fragment deadBugs_fragment = new DeadBugs_Fragment();
                         deadBugs_fragment.setArguments(bundle);
-                        deadBugs_fragment.recieveData();
+                        //deadBugs_fragment.recieveData();
+                        //deadBugs_fragment.receivedData = true;
                         finish();
                     }
                 });

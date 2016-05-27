@@ -11,6 +11,7 @@ import android.view.ViewGroup;
  */
 public class MainMenu_Fragment extends android.support.v4.app.Fragment {
 
+
     View myView;
 
     @Nullable
