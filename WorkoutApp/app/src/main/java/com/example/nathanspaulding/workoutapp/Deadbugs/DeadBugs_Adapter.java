@@ -1,23 +1,22 @@
-package com.example.nathanspaulding.workoutapp;
+package com.example.nathanspaulding.workoutapp.Deadbugs;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.example.nathanspaulding.workoutapp.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Nathan Spaulding on 5/25/2016.
  */
 public class DeadBugs_Adapter extends RecyclerView.Adapter<DeadBugs_Adapter.ViewHolder> {
 
-    private ArrayList<DeadBugs_DataModel> dataSet;
+    private ArrayList<HashMap<String,String>> dataSet;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -33,7 +32,8 @@ public class DeadBugs_Adapter extends RecyclerView.Adapter<DeadBugs_Adapter.View
         }
     }
 
-    public DeadBugs_Adapter(ArrayList<DeadBugs_DataModel> data){
+
+    public DeadBugs_Adapter(ArrayList<HashMap<String, String>> data){
         this.dataSet = data;
     }
 
@@ -49,21 +49,18 @@ public class DeadBugs_Adapter extends RecyclerView.Adapter<DeadBugs_Adapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        String time = dataSet.get(position).getTimerVal();
-        int interval = dataSet.get(position).getInterval();
-        int sets = dataSet.get(position).getSets();
+        HashMap<String,String> e = dataSet.get(position);
+        holder.mTimerVal.setText(e.get("timer"));
+        holder.mInterval.setText(e.get("interval"));
+        holder.mSets.setText(e.get("sets"));
 
-        holder.mTimerVal.setText(time);
-        holder.mInterval.setText(String.valueOf(interval));
-        holder.mSets.setText(String.valueOf(sets));
+        
+
     }
 
     @Override
     public int getItemCount() {
         return dataSet == null ? 0 : dataSet.size();
     }
-
-
-
 
 }

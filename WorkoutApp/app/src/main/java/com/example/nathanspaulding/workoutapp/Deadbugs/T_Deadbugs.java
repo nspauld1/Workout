@@ -1,4 +1,4 @@
-package com.example.nathanspaulding.workoutapp;
+package com.example.nathanspaulding.workoutapp.Deadbugs;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,13 +10,14 @@ import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.nathanspaulding.workoutapp.R;
 
 /**
  * Created by Nathan Spaulding on 5/25/2016.
@@ -25,12 +26,12 @@ import android.widget.Toast;
  */
 public class T_Deadbugs extends AppCompatActivity {
 
-    public boolean dataSent;
+    //public boolean dataSent;
     int interval, totalSets;
     Button startButton, pauseButton, finshButton;
 
-    final String s = "Switch";
-    ListView listView;
+
+    //final String s = "Switch";
     private long startTime = 0L;
     private TextView timerValue;
     private Handler customHandler = new Handler();
@@ -40,17 +41,25 @@ public class T_Deadbugs extends AppCompatActivity {
     long updateTime = 0L;
 
     int num2 = 0, i=0;
+    private int _DeadBugs_Id = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.t_deadbugs);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        _DeadBugs_Id = 0;
         Intent intent = getIntent();
+        _DeadBugs_Id = intent.getIntExtra("deadBug_Id", 0);
         interval = intent.getIntExtra("Interval", 0);
+        DeadBugsRepo repo = new DeadBugsRepo(this);
+        DeadBugs deadBugs = new DeadBugs();
+        deadBugs = repo.getDeadBugById(_DeadBugs_Id);
+
 
         timerValue = (TextView)findViewById(R.id.timerValue);
 
@@ -101,15 +110,22 @@ public class T_Deadbugs extends AppCompatActivity {
                 builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // Send back data to DeadBug_Fragment
-                        Bundle bundle = new Bundle();
-                        bundle.putString("Timer", timerValue.getText().toString());
-                        bundle.putInt("Interval", interval);
-                        bundle.putInt("Sets", totalSets / 2);
-                        DeadBugs_Fragment deadBugs_fragment = new DeadBugs_Fragment();
-                        deadBugs_fragment.setArguments(bundle);
-                        //deadBugs_fragment.recieveData();
-                        //deadBugs_fragment.receivedData = true;
+                        totalSets = totalSets / 2;
+
+                        DeadBugsRepo repo1 = new DeadBugsRepo(T_Deadbugs.this);
+                        DeadBugs deadBugs1 = new DeadBugs();
+                        deadBugs1.timerVal = timerValue.getText().toString();
+                        deadBugs1.interval = interval;
+                        deadBugs1.sets = totalSets;
+                        deadBugs1.deadbug_ID = _DeadBugs_Id;
+
+                        if(_DeadBugs_Id == 0){
+                            _DeadBugs_Id = repo1.addDeadBug(deadBugs1);
+                        }
+                        else {
+                            // Not implemented
+                            repo1.updateEntry(deadBugs1);
+                        }
                         finish();
                     }
                 });
