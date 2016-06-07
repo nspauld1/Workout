@@ -24,7 +24,8 @@ public class DeadBugsDBHelper extends SQLiteOpenHelper{
                 + DeadBugs.KEY_ID  + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
                 + DeadBugs.KEY_timer + " TEXT, "
                 + DeadBugs.KEY_interval + " INTEGER, "
-                + DeadBugs.KEY_sets + " INTEGER )";
+                + DeadBugs.KEY_sets + " INTEGER, "
+                + DeadBugs.KEY_date + " DATE )";
 
         db.execSQL(CREATE_DEADBUGS_TABLE);
     }

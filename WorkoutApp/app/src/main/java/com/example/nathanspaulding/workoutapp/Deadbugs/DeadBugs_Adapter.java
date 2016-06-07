@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.example.nathanspaulding.workoutapp.R;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,12 +25,14 @@ public class DeadBugs_Adapter extends RecyclerView.Adapter<DeadBugs_Adapter.View
         public TextView mTimerVal;
         public TextView mInterval;
         public TextView mSets;
+        public TextView mDate;
 
         public ViewHolder (View view){
             super(view);
             this.mTimerVal = (TextView)view.findViewById(R.id.timerValue);
             this.mInterval = (TextView)view.findViewById(R.id.interval);
             this.mSets = (TextView)view.findViewById(R.id.sets);
+            this.mDate = (TextView)view.findViewById(R.id.date);
         }
     }
 
@@ -53,9 +57,7 @@ public class DeadBugs_Adapter extends RecyclerView.Adapter<DeadBugs_Adapter.View
         holder.mTimerVal.setText(e.get("timer"));
         holder.mInterval.setText(e.get("interval"));
         holder.mSets.setText(e.get("sets"));
-
-        
-
+        holder.mDate.setText(e.get("date"));
     }
 
     @Override

@@ -25,6 +25,7 @@ public class DeadBugsRepo {
         //Open connection to write data
         SQLiteDatabase db = deadBugsDBHandler.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(DeadBugs.KEY_date, deadBugs.date);
         values.put(DeadBugs.KEY_sets, deadBugs.sets);
         values.put(DeadBugs.KEY_interval,deadBugs.interval);
         values.put(DeadBugs.KEY_timer, deadBugs.timerVal);
@@ -50,6 +51,7 @@ public class DeadBugsRepo {
         SQLiteDatabase db = deadBugsDBHandler.getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        values.put(DeadBugs.KEY_date, deadBugs.date);
         values.put(DeadBugs.KEY_sets, deadBugs.sets);
         values.put(DeadBugs.KEY_interval,deadBugs.interval);
         values.put(DeadBugs.KEY_timer, deadBugs.timerVal);
@@ -67,7 +69,8 @@ public class DeadBugsRepo {
                 DeadBugs.KEY_ID + "," +
                 DeadBugs.KEY_timer + "," +
                 DeadBugs.KEY_interval + "," +
-                DeadBugs.KEY_sets +
+                DeadBugs.KEY_sets + "," +
+                DeadBugs.KEY_date +
                 " FROM " + DeadBugs.TABLE;
 
         //Student student = new Student();
@@ -83,6 +86,7 @@ public class DeadBugsRepo {
                 deadbug.put("timer", cursor.getString(cursor.getColumnIndex(DeadBugs.KEY_timer)));
                 deadbug.put("interval",cursor.getString(cursor.getColumnIndex(DeadBugs.KEY_interval)));
                 deadbug.put("sets",cursor.getString(cursor.getColumnIndex(DeadBugs.KEY_sets)));
+                deadbug.put("date",cursor.getString(cursor.getColumnIndex(DeadBugs.KEY_date)));
                 deadbugList.add(deadbug);
 
             } while (cursor.moveToNext());
@@ -99,7 +103,8 @@ public class DeadBugsRepo {
                 DeadBugs.KEY_ID + "," +
                 DeadBugs.KEY_timer + "," +
                 DeadBugs.KEY_interval + "," +
-                DeadBugs.KEY_sets +
+                DeadBugs.KEY_sets +"," +
+                DeadBugs.KEY_date +
                 " FROM " + DeadBugs.TABLE
                 + " WHERE " +
                 DeadBugs.KEY_ID + "=?";// It's a good practice to use parameter ?, instead of concatenate string
@@ -115,6 +120,7 @@ public class DeadBugsRepo {
                 deadBugs.timerVal = cursor.getString(cursor.getColumnIndex(DeadBugs.KEY_timer));
                 deadBugs.interval  = cursor.getInt(cursor.getColumnIndex(DeadBugs.KEY_interval));
                 deadBugs.sets = cursor.getInt(cursor.getColumnIndex(DeadBugs.KEY_sets));
+                deadBugs.date = cursor.getString(cursor.getColumnIndex(DeadBugs.KEY_date));
 
             } while (cursor.moveToNext());
         }

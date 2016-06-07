@@ -19,6 +19,10 @@ import android.widget.Toast;
 
 import com.example.nathanspaulding.workoutapp.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by Nathan Spaulding on 5/25/2016.
  * This is the class for timing deadbugs. It will be passed an intent from
@@ -117,6 +121,12 @@ public class T_Deadbugs extends AppCompatActivity {
                         deadBugs1.timerVal = timerValue.getText().toString();
                         deadBugs1.interval = interval;
                         deadBugs1.sets = totalSets;
+
+                        Calendar c = Calendar.getInstance();
+                        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:MM a");
+                        String date = sdf.format(c.getTime());
+                        deadBugs1.date = date;
+
                         deadBugs1.deadbug_ID = _DeadBugs_Id;
 
                         if(_DeadBugs_Id == 0){

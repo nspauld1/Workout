@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,15 +15,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,10 +38,12 @@ public class DeadBugs_Fragment extends android.support.v4.app.Fragment {
     public static Context mContext;
     View myView;
     int  interval;
+    ImageView appBackground;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     SwipeRefreshLayout mSwipeRefreshLayout;
+
 
 
     @Nullable
@@ -56,12 +57,13 @@ public class DeadBugs_Fragment extends android.support.v4.app.Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-
         mSwipeRefreshLayout = (SwipeRefreshLayout)myView.findViewById(R.id.swipeRefresh);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshItems();
+                refreshSlower();
+                //refreshItems();
             }
         });
 
@@ -96,6 +98,28 @@ public class DeadBugs_Fragment extends android.support.v4.app.Fragment {
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
+
+    void refreshSlower() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //update the listview with new values.
+                DeadBugsRepo repo = new DeadBugsRepo(getContext());
+                ArrayList<HashMap<String, String>> deadBugList = repo.getDeadBugList();
+
+                if (deadBugList.size() != 0) {
+
+                    mAdapter = new DeadBugs_Adapter(deadBugList);
+                    mRecyclerView.setAdapter(mAdapter);
+                } else {
+                    Toast.makeText(getContext(), "No DeadBugs!", Toast.LENGTH_SHORT).show();
+                }
+
+                onItemsLoadComplete();
+                mSwipeRefreshLayout.setRefreshing(false);  //turn of the refresh.
+            }
+        }, 1200);
+    }
 
     public void CreateNew(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
